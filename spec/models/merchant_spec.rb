@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Merchant do
   describe 'relationships' do
     it { should have_many :items }
+    it { should have_many :discounts }
     it { should have_many(:invoice_items).through(:items) }
     it { should have_many(:invoices).through(:invoice_items) }
     it { should have_many(:customers).through(:invoices) }
@@ -124,7 +125,7 @@ RSpec.describe Merchant do
         merchant3 = create(:merchant)
         merchant4 = create(:merchant)
         merchant5 = create(:merchant)
-        
+
         item_1 = create(:item, merchant: merchant, unit_price: 1)
         item_2 = create(:item, merchant: merchant2, unit_price: 1000)
         item_3 = create(:item, merchant: merchant3, unit_price: 10)
@@ -162,7 +163,7 @@ RSpec.describe Merchant do
     describe '#top_revenue_date' do
       it 'returns the date the merchant made the most revenue' do
         merchant = create(:merchant)
-        
+
         item_1 = create(:item, merchant: merchant, unit_price: 1)
         item_2 = create(:item, merchant: merchant, unit_price: 1000)
         item_3 = create(:item, merchant: merchant, unit_price: 10)
