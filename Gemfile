@@ -43,7 +43,7 @@ group :development, :test do
   gem 'launchy'
   gem 'orderly'
   gem 'zombie_scout'
-  
+
 end
 
 group :development do
@@ -72,6 +72,5 @@ gem "factory_bot_rails", :groups => [:development, :test]
 gem "bootstrap", "~> 5.2"
 
 gem 'simplecov', require: false, group: :test
-
 
 gem "httparty", "~> 0.20.0"
