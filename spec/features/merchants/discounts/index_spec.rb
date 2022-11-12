@@ -34,7 +34,6 @@ RSpec.describe 'Merchant Discounts' do
         expect(page).to have_link('discount page'), "/merchants/#{@merchant.id}/discounts/#{@discount1.id}"
         expect(page).to have_content(30)
         expect(page).to have_content(15)
-        click_link
       end
 
       it 'has a link to create new discount' do
@@ -42,14 +41,21 @@ RSpec.describe 'Merchant Discounts' do
         expect(page).to have_link('create new discount')
         click_link('create new discount')
         expect(current_path).to eq(new_merchant_discount_path(@merchant.id))
-        fill_in "percentage", with: 50
-        fill_in "threshold", with: 40
+        fill_in 'percentage', with: 50
+        fill_in 'threshold', with: 40
         click_button('submit new discount')
         expect(current_path).to eq(merchant_discounts_path(@merchant.id))
         expect(page).to have_content(50)
         expect(page).to have_content(40)
       end
 
+      it 'has links to delete discounts' do
+        expect(page).to have_content('delete discount')
+        expect(page).to have_content(20)
+        first(:link, 'delete discount').click
+        expect(current_path).to eq(merchant_discounts_path(@merchant.id))
+        expect(page).not_to have_content(20)
+      end
     end
   end
 end

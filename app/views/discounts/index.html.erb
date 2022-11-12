@@ -11,12 +11,14 @@
         <th>Percentage</th>
         <th>Threshold</th>
         <th> </th>
+        <th> </th>
       </tr>
       <% @merchant.discounts.each do |discount| %>
       <tr>
       <td><%= discount.percentage %></td>
       <td><%= discount.threshold %></td>
-      <td><%=  link_to 'discount page', "/merchants/#{@merchant.id}/discounts/#{discount.id}" %></td>
+      <td><%= link_to 'discount page', "/merchants/#{@merchant.id}/discounts/#{discount.id}" %></td>
+      <td><%= link_to 'delete discount', merchant_discount_path(@merchant.id, discount.id), data: {confirm: 'are you sure?'}, method: :delete %></td>
       </tr>
       <% end %>
     </table>
