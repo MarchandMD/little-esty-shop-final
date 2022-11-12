@@ -4,6 +4,7 @@ RSpec.describe Customer, type: :model do
 
   describe 'relationships' do
     it { should have_many :invoices }
+    it { should have_many(:discounts).through(:merchants)}
     # it { should have_many :transactions, through: :invoices}
   end
 
@@ -20,7 +21,7 @@ RSpec.describe Customer, type: :model do
     @customer_5 = Customer.create!(first_name: "Fannie", last_name: "May")
     @customer_6 = Customer.create!(first_name: "Lorelai", last_name: "Gillmore")
     @customer_7 = Customer.create!(first_name: "Simon", last_name: "Garfunkle")
-  
+
     @invoice_1 = @customer_1.invoices.create!(status: 0)
     @invoice_2 = @customer_1.invoices.create!(status: 0)
     @invoice_3 = @customer_1.invoices.create!(status: 1)

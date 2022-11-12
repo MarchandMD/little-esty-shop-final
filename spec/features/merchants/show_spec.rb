@@ -19,6 +19,8 @@ RSpec.describe 'Merchant Dashboard' do
     @customer2_invoice_item = create(:invoice_item, invoice: @customer2_invoice, item: @item_2, status: 1)
     @customer3_invoice_item = create(:invoice_item, invoice: @customer3_invoice, item: @item_3, status: 2)
 
+    Discount.create!(percentage: 20, threshold:10, merchant_id: @merchant.id)
+
     visit "/merchants/#{@merchant.id}/dashboard"
   end
   describe 'as a Merchant' do
@@ -131,5 +133,13 @@ RSpec.describe 'Merchant Dashboard' do
         expect(page).to_not have_content("#{customer4.first_name} #{customer4.last_name}")
       end
     end
+
+    it 'has a link to view all discounts' do
+      expect(current_path).to eq("/merchants/#{@merchant.id}/dashboard")
+      expect(page).to have_link('view all discounts')
+      click_link 'view all discounts'
+      expect(current_path).to eq("/merchants/#{@merchant.id}/discounts")
+    end
+
   end
 end
