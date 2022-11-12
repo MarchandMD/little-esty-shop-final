@@ -3,6 +3,6 @@
   <h3>New Discount Form</h3>
 </div>
   <div class="col-lg-4 p-3">
-    <%= render partial: 'shared/discount_form' %>
+    <%= render partial: 'shared/discount_form', locals: {url: merchant_discounts_path(params[:merchant_id]) }  %>
   </div>
 </div>

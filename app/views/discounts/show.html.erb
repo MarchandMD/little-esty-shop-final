@@ -6,7 +6,7 @@
         <th>Quantity Threshold</th>
       </tr>
       <tr>
-              <td><%= @discount.percentage %></td>
+        <td><%= @discount.percentage %></td>
         <td><%= @discount.threshold %></td>
       </tr>
     </table>
@@ -14,6 +14,7 @@
 </div>
 <div class="row">
   <div class="col">
-      <%= link_to 'Back to Merchant discounts', merchant_discounts_path(params[:merchant_id]), {class: 'btn btn-primary'} %>
+    <%= link_to 'edit discount', edit_merchant_discount_path(@merchant.id, @discount.id), {class: 'btn btn-primary'} %>
+    <%= link_to 'Back to Merchant discounts', merchant_discounts_path(params[:merchant_id]), {class: 'btn btn-primary'} %>
   </div>
 </div>

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :invoices, only: %i[index show]
     resources :items, only: %i[index show new create edit update]
     resources :invoice_items, only: [:update]
-    resources :discounts, only: %i[index show new create destroy]
+    resources :discounts, only: %i[index new create show edit update destroy]
   end
 
   namespace :admin do
