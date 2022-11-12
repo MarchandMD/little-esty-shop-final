@@ -4,7 +4,9 @@ class DiscountsController < ApplicationController
   end
 
   def show
-    # code to go here
+    merchant = Merchant.find(params[:merchant_id])
+
+    @discount = merchant.discounts.find(params[:id])
   end
 
   def new
@@ -18,8 +20,10 @@ class DiscountsController < ApplicationController
 
     if @discount.save
       redirect_to merchant_discounts_path(params[:merchant_id])
-    elsif render 'new'
-    end
+   else
+    render 'new'
+   end
+    
   end
 
   def destroy
