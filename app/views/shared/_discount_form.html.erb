@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <%= form_with(model: @discount, url: merchant_discounts_path(params[:merchant_id]), local: true) do |f| %>
+    <%= form_with(model: @discount, url: url, local: true) do |f| %>
     <div class="p-3">
       <%= f.label :percentage, 'percentage' %>
       <%= f.number_field(:percentage, in: 1..90, step: 1.0) %>
@@ -10,7 +10,7 @@
       <%= f.number_field(:threshold, in: 1..90, step: 1.0) %>
     </div>
     <div>
-      <%= f.submit 'submit new discount', {class: 'btn btn-primary m-3'} %>
+      <%= f.submit 'submit', {class: 'btn btn-primary m-3'} %>
     </div>
     <% end %>
   </div>
