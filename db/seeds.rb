@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Discount.destroy_all
+
+
+Discount.create!(percentage: 20, threshold:10, merchant_id: 1)
