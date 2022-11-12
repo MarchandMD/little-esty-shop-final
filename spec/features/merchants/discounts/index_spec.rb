@@ -43,7 +43,7 @@ RSpec.describe 'Merchant Discounts' do
         expect(current_path).to eq(new_merchant_discount_path(@merchant.id))
         fill_in 'percentage', with: 50
         fill_in 'threshold', with: 40
-        click_button('submit new discount')
+        click_button('submit')
         expect(current_path).to eq(merchant_discounts_path(@merchant.id))
         expect(page).to have_content(50)
         expect(page).to have_content(40)

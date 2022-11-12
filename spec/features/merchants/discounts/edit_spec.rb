@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'faker'
 
-RSpec.describe 'discounts#show' do
+RSpec.describe 'discounts#edit' do
   before :each do
     @merchant = create(:merchant)
     @item_1 = create(:item, merchant: @merchant)
@@ -24,15 +24,19 @@ RSpec.describe 'discounts#show' do
     visit "/merchants/#{@merchant.id}/discounts/#{@discount1.id}"
   end
 
-  it 'displays the percentage and threshold' do
-    expect(page).to have_content('Percentage')
-    expect(page).to have_content(20)
-    expect(page).to have_content('Quantity Threshold')
-    expect(page).to have_content(10)
+  it 'has a link on the show page' do
+    expect(page).to have_content('edit discount')
   end
 
-  it 'has a link to edit the discount' do
-    expect(page).to have_link('edit discount')
+  it 'has the ability to edit the discount' do
+    click_link('edit discount')
+    expect(current_path).to eq(edit_merchant_discount_path(@merchant.id, @discount1.id))
+    fill_in "percentage", with: 89
+    fill_in "threshold", with: 50
+    click_button 'submit'
+    expect(current_path).to eq(merchant_discount_path(@merchant.id, @discount1.id))
+    expect(page).to have_content(89)
+    expect(page).to have_content(50)
   end
 
 
