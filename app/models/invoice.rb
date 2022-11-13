@@ -6,7 +6,7 @@ class Invoice < ApplicationRecord
   has_many :merchants, through: :items
   has_many :discounts, through: :merchants
 
-  enum status: [ :completed, :cancelled, "in progress" ]
+  enum status: [:completed, :cancelled, 'in progress']
 
   def formatted_date
     created_at.strftime('%A, %B%e, %Y')
@@ -17,10 +17,14 @@ class Invoice < ApplicationRecord
   end
 
   def self.incomplete_invoices
-    self.joins(:invoice_items).where.not(invoice_items: {status: 2}).distinct.order(:created_at)
+    joins(:invoice_items).where.not(invoice_items: { status: 2 }).distinct.order(:created_at)
   end
 
   def total_revenue
-    items.sum("unit_price")
+    items.sum('unit_price')
+  end
+
+  def discounted_revenue
+    items.count
   end
 end
