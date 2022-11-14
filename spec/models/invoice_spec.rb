@@ -14,17 +14,26 @@ RSpec.describe Invoice, type: :model do
   end
 
   before :each do
+    # merchants
     @merchant1 = Merchant.create!(name: "Billy's Baby Book Barn")
     @merchant2 = Merchant.create!(name: "Candy's Child Compendium Collection")
+
+    # items
     @item1 = @merchant1.items.create!(name: "Learn to Count, Dummy!", description: "Educational Children's Book", unit_price: 2400)
     @item2 = @merchant1.items.create!(name: "Go to Sleep Please, Mommy Just Wants to Watch Leno", description: "Baby Book", unit_price: 1500)
     @item3 = @merchant2.items.create!(name: "There ARE More Than Seven Animals But This is a Good Start", description: "Educational Children's Book", unit_price: 2100)
+
+    # customers
     @mary = Customer.create!(first_name: "Mary", last_name: "Mommy")
     @daniel = Customer.create!(first_name: "Daniel", last_name: "Daddy")
     @annie = Customer.create!(first_name: "Annie", last_name: "Auntie")
+
+    #invoices
     @invoice1 = @mary.invoices.create!(status: 2)
     @invoice2 = @daniel.invoices.create!(status: 2)
     @invoice3 = @annie.invoices.create!(status: 2)
+
+    #invoice_items
     @invoiceitem1 = InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: @item1.unit_price, status: 0 )
     @invoiceitem2 = InvoiceItem.create!(item: @item2, invoice: @invoice1, quantity: 2, unit_price: @item2.unit_price, status: 0 )
     @invoiceitem3 = InvoiceItem.create!(item: @item1, invoice: @invoice2, quantity: 1, unit_price: @item1.unit_price, status: 0 )
@@ -87,6 +96,10 @@ RSpec.describe Invoice, type: :model do
           expect(@invoice_6.total_revenue).to_not eq(4311)
         end
       end
+    end
+
+    describe '#total_discount' do
+      
     end
   end
 end
