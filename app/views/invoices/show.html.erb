@@ -11,7 +11,13 @@
     <p>Status: <%= @invoice.status %></p>
     <p>Created on: <%= @invoice.formatted_date %></p>
     <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %></p>
-    <p>Discounted Revenue: <strong>IT GOES HERE</strong></p>
+    <% if @invoice.items_available_for_discount.count == 0 %>
+      <p>Discounts: <strong>Does not apply</strong></p>
+      <p>Total Revenue: <%= number_to_currency(@merchant.invoice_revenue(@invoice.id) / 100.00) %></p>
+    <% else %>
+      <p>Discounts applied: <strong><%= number_to_currency(@invoice.discount.sum(&:calculated_discount) / 100.00) %></strong></p>
+      <p>Total Revenue (after discounts): <strong><%=number_to_currency((@merchant.invoice_revenue(@invoice.id) - @invoice.discount.sum(&:calculated_discount)) / 100.00)  %></strong></p>
+    <% end %>
   </div>
 </div>
 <div class="row">
