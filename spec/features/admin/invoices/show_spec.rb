@@ -14,7 +14,7 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
     @customer_5 = Customer.create!(first_name: "Fannie", last_name: "May")
     @customer_6 = Customer.create!(first_name: "Lorelai", last_name: "Gillmore")
     @customer_7 = Customer.create!(first_name: "Simon", last_name: "Garfunkle")
-  
+
     @invoice_1 = @customer_1.invoices.create!(status: 0)
     @invoice_2 = @customer_1.invoices.create!(status: 0)
     @invoice_3 = @customer_1.invoices.create!(status: 1)
@@ -35,14 +35,14 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
     @invoice_18 = @customer_6.invoices.create!(status: 2)
     @invoice_19 = @customer_6.invoices.create!(status: 2)
     @invoice_20 = @customer_7.invoices.create!(status: 0)
-    
+
     @item_1 = Item.create!(merchant_id: @merchant_1.id, name: "Candy Dispenser", description: "Dispenses Candy", unit_price: 4291, status: 0)
     @item_2 = Item.create!(merchant_id: @merchant_1.id, name: "Towel", description: "100% Cotton", unit_price: 15, status: 1)
     @item_3 = Item.create!(merchant_id: @merchant_2.id, name: "Bowl", description: "Ceramic, Blue", unit_price: 5, status: 1)
     @item_4 = Item.create!(merchant_id: @merchant_2.id, name: "Napkin Holder", description: "Shaped Like A Taco", unit_price: 45, status: 1)
     @item_5 = Item.create!(merchant_id: @merchant_2.id, name: "Rocket Ship", description: "For Trip To Space", unit_price: 10000000, status: 1)
     @item_6 = Item.create!(merchant_id: @merchant_3.id, name: "TV", description: "52 Inch Flat Screen", unit_price: 90999, status: 0)
-    
+
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 738, unit_price: 4291, status: 0)
     @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 12, unit_price: 15, status: 1)
     @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 554, unit_price: 5, status: 2)
@@ -75,18 +75,18 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
   it "the show page has the information related to the specified invoice, including invoice id, invoice status,
     invoice created_at date in the format 'Monday, July 18, 2019', customer first and last name" do
       visit "admin/invoices/#{@invoice_1.id}"
-      
+
       expect(page).to have_content("Invoice #: #{@invoice_1.id}")
       expect(page).to have_content("#{@invoice_1.status}")
       expect(page).to have_content("Created On: #{@invoice_1.formatted_date}")
       expect(page).to have_content("Customer: #{@invoice_1.customer.first_name} #{@invoice_1.customer.last_name}")
 
       expect(page).to have_no_content("Invoice #: #{@invoice_2.id}")
-  end 
+  end
 
   it "should list the total revenue that will be generated from the specified invoice" do
     visit "admin/invoices/#{@invoice_1.id}"
-    expect(page).to have_content("Total Revenue: $4,311.00")
+    expect(page).to have_content("Total Revenue: $31,669.38")
     expect(page).to have_no_content("Total Revenue: $10,000,045.00")
   end
 
@@ -99,7 +99,7 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
       within("#invoice-#{@invoice_item_1.item.id}") do
         expect(page).to have_content(@invoice_item_1.item.name)
         expect(page).to have_content(@invoice_item_1.quantity)
-        expect(page).to have_content("$4,291.00")
+        expect(page).to have_content("$42.91")
         expect(page).to have_content(@invoice_item_1.status)
       end
 
@@ -115,7 +115,7 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
       expect(@invoice_1.status).to eq("completed")
       expect(page).to have_button("Update Invoice Status")
     end
-  end 
+  end
 
   it "when the Update Invoice Status button is clicked, the item status will be
     updated with the status chosen and the user will be redirected back to the
@@ -137,4 +137,4 @@ RSpec.describe "Admin Invoices Show Page", type: :feature do
         expect(@current_invoice.status).to eq("in progress")
       end
   end
-end 
+end
