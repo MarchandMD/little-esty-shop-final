@@ -18,7 +18,7 @@ RSpec.describe 'Merchant Discounts' do
     @customer2_invoice_item = create(:invoice_item, invoice: @customer2_invoice, item: @item_2, status: 1)
     @customer3_invoice_item = create(:invoice_item, invoice: @customer3_invoice, item: @item_3, status: 2)
 
-    @discount1 = Discount.create!(percentage: 20, threshold: 10, merchant_id: @merchant.id)
+    @discount1 = Discount.create!(percentage: 40, threshold: 10, merchant_id: @merchant.id)
     Discount.create!(percentage: 30, threshold: 15, merchant_id: @merchant.id)
 
     visit "/merchants/#{@merchant.id}/discounts"
@@ -51,10 +51,14 @@ RSpec.describe 'Merchant Discounts' do
 
       it 'has links to delete discounts' do
         expect(page).to have_content('delete discount')
-        expect(page).to have_content(20)
+        expect(page).to have_content(40)
         first(:link, 'delete discount').click
         expect(current_path).to eq(merchant_discounts_path(@merchant.id))
-        expect(page).not_to have_content(20)
+        expect(page).not_to have_content(40)
+      end
+
+      it 'displays upcoming holidays' do
+        expect(page).to have_content('Upcoming Holidays')
       end
     end
   end
