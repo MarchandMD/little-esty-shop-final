@@ -8,6 +8,7 @@ class Invoice < ApplicationRecord
 
   enum status: [:completed, :cancelled, 'in progress']
 
+
   def formatted_date
     created_at.strftime('%A, %B%e, %Y')
   end
@@ -29,8 +30,10 @@ class Invoice < ApplicationRecord
   end
 
   def discount
-    invoice_items.select('(invoice_items.unit_price *invoice_items.quantity) * discounts.percentage/100 as calculated_discount')
+    invoice_items.select('invoice_items.*, max(invoice_items.unit_price * invoice_items.quantity * (discounts.percentage)/100) as calculated_discount')
     .joins(:discounts)
     .where('invoice_items.quantity >= discounts.threshold')
+    .group('invoice_items.id')
+    .sum(&:calculated_discount)
   end
 end
