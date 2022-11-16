@@ -1,18 +1,33 @@
 <%= render partial: 'shared/navbar', locals: { merchant_name: @merchant.name }  %>
-
-<h5> <%= link_to "Merchant Items List", "/merchants/#{@merchant.id}/items" %> </h5>
-<h5> <%= link_to "Merchant Invoices Index", "/merchants/#{@merchant.id}/invoices" %> </h5>
-<%= link_to "view all discounts", "/merchants/#{@merchant.id}/discounts", { class: 'btn btn-primary'} %>
-
+<div class="row">
+  <div class="col d-flex justify-content-around">
+    <h5> <%= link_to "Merchant Items List", "/merchants/#{@merchant.id}/items" %> </h5>
+    <h5> <%= link_to "Merchant Invoices Index", "/merchants/#{@merchant.id}/invoices" %> </h5>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col d-flex justify-content-center">
+    <%= link_to "view all discounts", "/merchants/#{@merchant.id}/discounts", { class: 'btn btn-primary'} %>
+  </div>
+</div>
 <div class="row">
   <div class="col-6 border border-1">
     <div id="dashboard-items_to_ship">
       <h3>Items Ready to Ship</h3>
-      <ul>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Link</th>
+          <th>Date</th>
+        </tr>
         <% @merchant.invoices_not_shipped.each do |invoice_item| %>
-        <li> <%= invoice_item.item.name %> <%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %> - <%= invoice_item.invoice.formatted_date %> </li>
+          <tr>
+            <td><%= invoice_item.item.name %></td>
+            <td><%= link_to "Invoice ##{invoice_item.invoice.id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice.id}" %></td>
+            <td><%= invoice_item.invoice.formatted_date %></td>
+          </tr>
         <% end %>
-      </ul>
+      </table>
     </div>
   </div>
   <div class="col-6 border border-1">
@@ -20,7 +35,7 @@
       <h3>Favorite Customers</h3>
       <ul>
         <% @merchant.merchant_top_5_customers.each do |customer| %>
-        <li> <%= "#{customer.first_name} #{customer.last_name} --- Completed Transactions: #{customer.number_transactions}" %> </li>
+          <li> <%= "#{customer.first_name} #{customer.last_name} --- Completed Transactions: #{customer.number_transactions}" %> </li>
         <% end %>
       </ul>
     </div>
