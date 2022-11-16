@@ -14,7 +14,7 @@ RSpec.describe "Admin Invoices Index Page", type: :feature do
     @customer_5 = Customer.create!(first_name: "Fannie", last_name: "May")
     @customer_6 = Customer.create!(first_name: "Lorelai", last_name: "Gillmore")
     @customer_7 = Customer.create!(first_name: "Simon", last_name: "Garfunkle")
-  
+
     @invoice_1 = @customer_1.invoices.create!(status: 0)
     @invoice_2 = @customer_1.invoices.create!(status: 0)
     @invoice_3 = @customer_1.invoices.create!(status: 1)
@@ -35,14 +35,14 @@ RSpec.describe "Admin Invoices Index Page", type: :feature do
     @invoice_18 = @customer_6.invoices.create!(status: 2)
     @invoice_19 = @customer_6.invoices.create!(status: 2)
     @invoice_20 = @customer_7.invoices.create!(status: 0)
-    
+
     @item_1 = Item.create!(merchant_id: @merchant_1.id, name: "Candy Dispenser", description: "Dispenses Candy", unit_price: 4291)
     @item_2 = Item.create!(merchant_id: @merchant_1.id, name: "Towel", description: "100% Cotton", unit_price: 15)
     @item_3 = Item.create!(merchant_id: @merchant_2.id, name: "Bowl", description: "Ceramic, Blue", unit_price: 5)
     @item_4 = Item.create!(merchant_id: @merchant_2.id, name: "Napkin Holder", description: "Shaped Like A Taco", unit_price: 45)
     @item_5 = Item.create!(merchant_id: @merchant_2.id, name: "Rocket Ship", description: "For Trip To Space", unit_price: 10000000)
     @item_6 = Item.create!(merchant_id: @merchant_3.id, name: "TV", description: "52 Inch Flat Screen", unit_price: 90999)
-    
+
     @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 738, unit_price: 4291, status: 0)
     @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 12, unit_price: 15, status: 1)
     @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 554, unit_price: 5, status: 2)
@@ -104,14 +104,14 @@ RSpec.describe "Admin Invoices Index Page", type: :feature do
     within("#admin-invoices") do
       expect(page).to have_link("#{@invoice_1.id}")
       click_link "#{@invoice_1.id}"
-    end 
+    end
     expect(current_path).to eq(admin_invoice_path(@invoice_1.id))
 
     visit "admin/invoices"
     within("#admin-invoices") do
-      expect(page).to have_link("#{@invoice_4.id}")
-      click_link "#{@invoice_4.id}"
-    end 
-    expect(current_path).to eq(admin_invoice_path(@invoice_4.id))
+      expect(page).to have_link("#{@invoice_3.id}")
+      click_link "#{@invoice_3.id}"
+    end
+    expect(current_path).to eq(admin_invoice_path(@invoice_3.id))
   end
-end 
+end

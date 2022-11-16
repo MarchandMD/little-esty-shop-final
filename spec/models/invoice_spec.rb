@@ -121,7 +121,6 @@ RSpec.describe Invoice, type: :model do
         @invoice_for_discount = @michael.invoices.create!(status: 2)
         @invoice_for_discount.invoice_items.create!(item: @item1, quantity: 10, unit_price: @item1.unit_price)
 
-
         expect(@invoice_for_discount.discount).to eq(4800)
       end
 
@@ -135,6 +134,20 @@ RSpec.describe Invoice, type: :model do
         @invoice_with_two_discount_items.invoice_items.create!(item: @item2, quantity: 15,
                                                                unit_price: @item2.unit_price)
         expect(@invoice_with_two_discount_items.discount).to eq(12_510)
+      end
+    end
+
+    describe '#items_available_for_discount' do
+      it 'determines items available for discount' do
+        @merchant1.discounts.create!(threshold: 10, percentage: 20)
+        @michael = Customer.create!(first_name: 'Michael', last_name: 'Marchand')
+        @invoice_for_discount = @michael.invoices.create!(status: 2)
+        @invoice_for_discount.invoice_items.create!(item: @item1, quantity: 10, unit_price: @item1.unit_price)
+
+        expect(@invoice_for_discount.items_available_for_discount.count).to eq(1)
+        @invoice_for_discount.invoice_items.create!(item: @item2, quantity: 15,
+                                                    unit_price: @item2.unit_price)
+        expect(@invoice_for_discount.items_available_for_discount.count).to eq(2)
       end
     end
   end

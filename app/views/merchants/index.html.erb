@@ -1,1 +1,21 @@
 <h1>Merchants#index</h1>
+<div class="row justify-content-center">
+  <div class="col col-lg-6">
+    <table class="table table-striped">
+      <tr>
+        <th>Merchant Name</th>
+        <th>id</th>
+        <th>status</th>
+        <th>discounts</th>
+      </tr>
+      <% @merchants.each do |m| %>
+      <tr>
+        <td><%= link_to m.name, "/merchants/#{m.id}/dashboard" %></td>
+        <td><%= m.id %></td>
+        <td><%= m.status %></td>
+        <td><%= m.discounts.map { |d| d.percentage } %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
