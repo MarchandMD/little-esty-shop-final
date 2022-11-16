@@ -6,6 +6,23 @@
 </div>
 <div class="row">
   <div class="col">
+    <h3>Upcoming Holidays</h3>
+    <table class="table">
+    <tr>
+      <th>Holiday</th>
+      <th>date</th>
+    </tr>
+    <% @upcoming_holidays[0..2].each do |holiday| %>
+    <tr>
+      <td><%= holiday.name %></td>
+      <td><%= holiday.date %></td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
     <table class="table">
       <tr>
         <th>Percentage</th>
