@@ -5,7 +5,7 @@ RSpec.describe Invoice, type: :model do
     it { should belong_to :customer }
     it { should have_many :invoice_items }
     it { should have_many(:items).through(:invoice_items) }
-    it { should have_many(:discounts).through(:merchants) }
+    it { should have_many(:discounts).through(:invoice_items) }
   end
 
   describe 'enums' do
@@ -29,14 +29,11 @@ RSpec.describe Invoice, type: :model do
     @mary = Customer.create!(first_name: 'Mary', last_name: 'Mommy')
     @daniel = Customer.create!(first_name: 'Daniel', last_name: 'Daddy')
     @annie = Customer.create!(first_name: 'Annie', last_name: 'Auntie')
-    @michael = Customer.create!(first_name: 'Michael', last_name: 'Marchand')
 
     # invoices
     @invoice1 = @mary.invoices.create!(status: 2)
     @invoice2 = @daniel.invoices.create!(status: 2)
     @invoice3 = @annie.invoices.create!(status: 2)
-    @invoice_for_discount = @michael.invoices.create!(status: 2)
-    @invoice_for_discount.invoice_items.create!(item: @item1, quantity: 10, unit_price: @item1.unit_price)
 
     # invoice_items
     @invoiceitem1 = InvoiceItem.create!(item: @item1, invoice: @invoice1, quantity: 1, unit_price: @item1.unit_price,
@@ -119,10 +116,26 @@ RSpec.describe Invoice, type: :model do
 
     describe '#discount' do
       it 'calculates the total discount of an invoice with a single invoice_item' do
-        expect(@invoice_for_discount.discount).to eq(10)
+        @merchant1.discounts.create!(threshold: 10, percentage: 20)
+        @michael = Customer.create!(first_name: 'Michael', last_name: 'Marchand')
+        @invoice_for_discount = @michael.invoices.create!(status: 2)
+        @invoice_for_discount.invoice_items.create!(item: @item1, quantity: 10, unit_price: @item1.unit_price)
+
+
+        expect(@invoice_for_discount.discount).to eq(4800)
       end
 
+      it 'can apply separate discounts' do
+        @marchand = Customer.create!(first_name: 'Marchand', last_name: 'Marchand')
+        @merchant1.discounts.create!(threshold: 10, percentage: 20)
+        @merchant1.discounts.create!(threshold: 15, percentage: 30)
+        @invoice_with_two_discount_items = @marchand.invoices.create!(status: 2)
+        @invoice_with_two_discount_items.invoice_items.create!(item: @item1, quantity: 12,
+                                                               unit_price: @item1.unit_price)
+        @invoice_with_two_discount_items.invoice_items.create!(item: @item2, quantity: 15,
+                                                               unit_price: @item2.unit_price)
+        expect(@invoice_with_two_discount_items.discount).to eq(12_510)
+      end
     end
-
   end
 end
