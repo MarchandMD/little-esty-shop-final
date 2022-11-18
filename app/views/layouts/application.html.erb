@@ -13,6 +13,11 @@
         <h1 class='bg-secondary bg-gradient text-center p-2'>Little Esty Shop</h1>
       </div>
     </div>
+    <nav>
+      <div>
+        <%= link_to 'Merchants', merchants_path %>
+      </div>
+    </nav>
 <% flash.each do |type, message| %>
   <p><%= message %></p>
 <% end %>
