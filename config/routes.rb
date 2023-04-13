@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # feel free to remove or change or delete this resource; ask MM if you have any questions about it
 
   root 'welcome#index'
-  get '/', to: 'welcome#index'
+  # get '/', to: 'welcome#index'
 
   resources :merchants, only: [:index]
 

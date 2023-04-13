@@ -1,6 +1,5 @@
-<%= render partial: 'shared/navbar', locals: { merchant_name: 'Welcome' } %>
 <div class="row">
   <div class="col">
-    <%= link_to 'Merchants', merchants_path %>
+    <%= sanitize Kramdown::Document.new(@hello_world).to_html  %>
   </div>
 </div>

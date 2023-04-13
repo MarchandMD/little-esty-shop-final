@@ -37,7 +37,7 @@
     <br />
   <img src="app/assets/images/les_screenshot.jpg" />
     <br />
-    <a href="https://github.com/MarchandMD/little-esty-shop-final"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/turingschool-examples/little-esty-shop"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/marchandmd/little-esty-shop-final">View Demo</a>
@@ -49,7 +49,6 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-<details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -73,7 +72,6 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
-</details>
 
 <!-- ABOUT THE PROJECT -->
 
@@ -83,14 +81,13 @@
 
 Concepts learned during this project:
 
-- Building custom Rake tasks to import CSV data
-- User Stories to drive completion of features
-- Following wireframes to guide front end design
-- Practice designing a normalized database schema and defining model relationships
-- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
-- Utilize advanced active record techniques to perform complex database queries
-- Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
-
+-   Building custom Rake tasks to import CSV data
+-   User Stories to drive completion of features
+-   Following wireframes to guide front end design
+-   Practice designing a normalized database schema and defining model relationships
+-   Utilize advanced routing techniques including namespacing to organize and group like functionality together.
+-   Utilize advanced active record techniques to perform complex database queries
+-   Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,7 +104,7 @@ Concepts learned during this project:
 
 ### Prerequisites
 
-- ruby version 2.7.4
+-   ruby version 2.7.4
 
 ### Installation
 
@@ -128,7 +125,6 @@ Concepts learned during this project:
 
 <img src="app/assets/images/les_schema.jpg" />
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
@@ -139,16 +135,15 @@ Will need to add the databases by running `rails db:{create,migrate}`
 
 You can see this locally by running `rails s` from the command line.
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 
 ## Roadmap
 
-- README
-- [ ] Deploy to Heroku student account
-- [ ] Add to marchandmd.github.io
+-   README
+-   [ ] Deploy to Heroku student account
+-   [ ] Add to marchandmd.github.io
 
 See the [open issues](https://github.com/marchandmd/little-esty-shop-final/issues) for a full list of proposed features (and known issues).
 
