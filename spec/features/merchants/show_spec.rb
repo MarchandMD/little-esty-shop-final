@@ -65,8 +65,8 @@ RSpec.describe 'Merchant Dashboard' do
     it "Item's Ready to Ship includes the date the invoice was created
     formatted as 'Monday, July 18, 2019' and they appear from oldest to newest" do
       within("#dashboard-items_to_ship") do
-        expect(page).to have_content("#{@item_1.name} Invoice ##{@customer1_invoice.id} - #{@customer1_invoice.created_at.strftime('%A, %B%e, %Y')}")
-        expect(page).to have_content("#{@item_2.name} Invoice ##{@customer2_invoice.id} - #{@customer2_invoice.created_at.strftime('%A, %B%e, %Y')}")
+        expect(page).to have_content("#{@item_1.name} Invoice ##{@customer1_invoice.id} #{@customer1_invoice.created_at.strftime('%A, %B%e, %Y')}")
+        expect(page).to have_content("#{@item_2.name} Invoice ##{@customer2_invoice.id} #{@customer2_invoice.created_at.strftime('%A, %B%e, %Y')}")
 
         first_link = find_link(@customer1_invoice.id)
         second_link = find_link(@customer2_invoice.id)
