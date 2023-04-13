@@ -1,7 +1,11 @@
-<%= render partial: 'shared/navbar', locals: { merchant_name: @merchant.name }  %>
+<div class="row">
+  <div class="col">
+    <%= tag.h1 @merchant.name %>
+  </div>
+</div>
 <div class="row">
   <div class="col d-flex justify-content-around">
-    <h5> <%= link_to "Merchant Items List", "/merchants/#{@merchant.id}/items" %> </h5>
+    <h5> <%= link_to "Merchant Items List", merchant_items_path(@merchant.id) %> </h5>
     <h5> <%= link_to "Merchant Invoices Index", "/merchants/#{@merchant.id}/invoices" %> </h5>
   </div>
 </div>
