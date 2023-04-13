@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  # feel free to remove or change or delete this resource; ask MM if you have any questions about it
-
   root 'welcome#index'
-  # get '/', to: 'welcome#index'
 
   resources :merchants, only: [:index]
 
@@ -18,8 +13,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :dashboard, only: [:index, :show]
-    resources :invoices, only: [:index, :show, :update]
+    resources :dashboard, only: %i[index show]
+    resources :invoices, only: %i[index show update]
     resources :merchants, except: [:destroy]
   end
 end
