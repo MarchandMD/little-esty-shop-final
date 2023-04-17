@@ -8,20 +8,46 @@
     <%= tag.h1 'All Merchants' %>
   </div>
 </div>
-<div class="grid">
+<div class="row">
+  <h3>Enabled Merchants</h3>
   <% @merchants.each do |m| %>
-    <div class="grid-item card">
-      <%= tag.h6 link_to m.name, merchant_path(m.id) %>
-      <%= "merchant status: #{m.status}" %>
-      <br>
-      <%= "id: #{m.id}" %>
-      <br>
-      <%  if m.discounts.count != 0 %>
-        <% m.discounts.each do |discount| %>
-          <%= "buy #{discount.threshold} items get #{discount.percentage}% off" %>
-          <br>
+    <% if m.status == 'enabled' %>
+      <div class="col-sm-3 m-5">
+        <%= tag.h6 link_to m.name, merchant_path(m.id) %>
+        <%= tag.p "merchant status: #{m.status}" %>
+        <%= tag.p "id: #{m.id}" %>
+        <%  if m.discounts.count != 0 %>
+          <% m.discounts.each do |discount| %>
+            <%= tag.p "buy #{discount.threshold} items get #{discount.percentage}% off" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<div class="row">
+  <h3>Disabled Merchants</h3>
+  <div class="col-sm-12 col-md-6">
+    <table class="table table-sm table-striped">
+      <tr>
+        <th>Merchant Name</th>
+        <th>Merchant ID</th>
+      </tr>
+      <% @merchants.each do |m| %>
+        <% if m.status == 'disabled' %>
+          <tr>
+            <td>
+              <%= tag.h6 link_to m.name, merchant_path(m.id) %>
+            </td>
+            <td>
+              <%= tag.p "#{m.id}" %>
+            </td>
+          </tr>
         <% end %>
       <% end %>
-    </div>
-  <% end %>
+    </table>
+  </div>
+  <div class="col-sm-12 col-md-6">
+    To enable a merchant, click through to the "admin dashboard", then "admin merchants" and enable through the interfact there
+  </div>
 </div>
