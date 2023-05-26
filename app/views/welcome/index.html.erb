@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <% sanitize Kramdown::Document.new(@hello_world).to_html  %>
-    <%= link_to 'login with Google', root_path %>
+    <%= sanitize Kramdown::Document.new(@hello_world).to_html  %>
+    <% link_to 'login with Google', root_path %>
   </div>
 </div>
