@@ -74,3 +74,5 @@ gem 'simplecov', require: false, group: :test
 gem "httparty", "~> 0.20.0"
 
 gem "kramdown", "~> 2.4"
+
+gem "chartkick", "~> 5.0"
